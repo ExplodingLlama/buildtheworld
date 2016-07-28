@@ -1,7 +1,7 @@
 {
   "host": "localhost",
   "port": 3030,
-  "mongodb": "mongodb://localhost:27017/buildtheworld",
+  "mongodb": "mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/",
   "public": "../public/",
   "auth": {
     "token": {
