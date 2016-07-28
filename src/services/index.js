@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 module.exports = function() {
   const app = this;
 
-  var mongodburl = process.env.OPENSHIFT_MONGODB_DB_URL || app.get('mongodb');
+  var mongodburl = process.env.OPENSHIFT_MONGODB_DB_URL;
   mongoose.connect(mongodburl);
   mongoose.Promise = global.Promise;
 
