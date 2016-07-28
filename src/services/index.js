@@ -8,8 +8,7 @@ const mongoose = require('mongoose');
 module.exports = function() {
   const app = this;
 
-  var mongodburl = process.env.OPENSHIFT_MONGODB_DB_URL;
-  mongoose.connect(mongodburl);
+  mongoose.connect(app.get('mongodb'));
   mongoose.Promise = global.Promise;
 
   app.configure(authentication);

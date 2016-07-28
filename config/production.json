@@ -1,7 +1,7 @@
 {
   "host": "build-the-world-app.feathersjs.com",
   "port": 80,
-  "mongodb": "DATABASE_URL",
+  "mongodb": "mongodb://admin:CrrCvxTrRidX@127.10.160.2:27017/",
   "public": "../public/",
   "auth": {
     "token": {
