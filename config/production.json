@@ -1,7 +1,7 @@
 {
   "host": "build-the-world-app.feathersjs.com",
   "port": 80,
-  "mongodb": "mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/",
+  "mongodb": "DATABASE_URL",
   "public": "../public/",
   "auth": {
     "token": {
