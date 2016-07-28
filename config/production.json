@@ -1,5 +1,5 @@
 {
-  "host": "build-the-world-app.feathersjs.com",
+  "host": "http://buildtheworld-explodingllama.rhcloud.com/",
   "port": 80,
   "mongodb": "mongodb://admin:CrrCvxTrRidX@127.10.160.2:27017/",
   "public": "../public/",
