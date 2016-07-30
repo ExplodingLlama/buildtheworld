@@ -1,6 +1,6 @@
 'use strict';
 
-const stripUnownedUserData = require('./strip-unowned-user-data');
+const restrictUserToOwner = require('./restrict-user-to-owner');
 
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
@@ -11,7 +11,8 @@ exports.before = {
   find: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.restrictToAuthenticated(),
+    restrictUserToOwner()
   ],
   get: [
     auth.verifyToken(),
@@ -44,7 +45,7 @@ exports.before = {
 
 exports.after = {
   all: [hooks.remove('password')],
-  find: [stripUnownedUserData()],
+  find: [],
   get: [],
   create: [],
   update: [],
