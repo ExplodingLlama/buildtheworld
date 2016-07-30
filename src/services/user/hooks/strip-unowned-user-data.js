@@ -14,16 +14,20 @@ module.exports = function(options) {
     //The hook contains the id of the requesting user. We compare that id to all the 
     //items in the result and only keep the one that's the same.
       
-      var newData = [];
+    //if it's an internal call ignore this hook
+    if (!hook.params.provider) {
+      return hook;
+    }
       
-      hook.result.data.forEach(function(current) {
-         if(current._id.toString() == hook.params.user._id.toString()) {
-             newData = newData.concat(current);
+    var newData = [];
+      
+    hook.result.data.forEach(function(current) {
+        if(current._id.toString() == hook.params.user._id.toString()) {
+            newData = newData.concat(current);
          } 
-      });
-      debugger;
-      hook.result.data = newData;
+    });
       
+    hook.result = newData;
     return hook;
   };
 };
