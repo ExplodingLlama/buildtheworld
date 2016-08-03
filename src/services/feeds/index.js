@@ -1,6 +1,7 @@
 'use strict';
 
 const hooks = require('./hooks');
+var app;
 
 class Service {
   constructor(options) {
@@ -8,38 +9,18 @@ class Service {
   }
 
   find(params) {
-    return Promise.resolve([]);
+      
+      const initiativeService = app.service('initiatives');
+      return initiativeService.find();
   }
 
   get(id, params) {
-    return Promise.resolve({
-      id, text: `A new message with ID: ${id}!`
-    });
-  }
-
-  create(data, params) {
-    if(Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current)));
-    }
-
-    return Promise.resolve(data);
-  }
-
-  update(id, data, params) {
-    return Promise.resolve(data);
-  }
-
-  patch(id, data, params) {
-    return Promise.resolve(data);
-  }
-
-  remove(id, params) {
-    return Promise.resolve({ id });
+    return this.find(params);
   }
 }
 
 module.exports = function(){
-  const app = this;
+  app = this;
 
   // Initialize our service with any options it requires
   app.use('/feeds', new Service());

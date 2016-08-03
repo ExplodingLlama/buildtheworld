@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const initiativesSchema = new Schema({
+    _id: String,
     title: String,
     description: String,
     location: {
