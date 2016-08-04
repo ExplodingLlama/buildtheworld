@@ -19,11 +19,24 @@ const app = feathers()
   }));
 
 const LoginButton = React.createClass ({
+    
+    logout() {
+        app.logout().then(() => window.location.href = '/index.html');
+    },
+    
     render() {
-        return <div>
-            <a href="/login.html" className="button-primary">Login</a>
-            <a href="/signup.html" className="button-primary">Signup</a>
-        </div>;
+            if(!this.props.user.email){
+                return <div>
+                    <a href="/login.html" className="button-primary">Login</a>
+                    <a href="/signup.html" className="button-primary">Signup</a>
+                </div>;
+            }
+            else {
+                return <div>
+                    <a href="#" className="logout button button-primary" onClick={this.logout}>Logout</a>
+                </div>;
+            }
+        
     }
 })
 
@@ -32,18 +45,25 @@ const UserComponent = React.createClass ({
     render() {
         const user = this.props.user;
         
+        if(!user.firstName) { user.firstName = "";}
+        if(!user.lastName) { user.lastName = "";}
+        
+        if(!this.props.user.email){
+            return <aside className="sidebar col col-3 flex flex-column flex-space-between">
+                <ul className="flex flex-column flex-1 list-unstyled user-list">
+                    <a className="block relative" href="#" />
+                </ul>
+            </aside>;
+        }
         
         return <aside className="sidebar col col-3 flex flex-column flex-space-between">
-            
             <ul className="flex flex-column flex-1 list-unstyled user-list">
                 <a className="block relative" href="#">
                     <img src={PLACEHOLDER} className="avatar" />
-                    <span className="absolute username">{user.email}</span>
+                    <span className="absolute username">{user.firstName + " " + user.lastName}</span>
                 </a>
             </ul>
         </aside>;
-        
-        return <div> {this.props.user}</div>;
     }
 });
 
@@ -71,7 +91,7 @@ const CardList = React.createClass({
     }
 });
 
-const MainPage = React.createClass ({
+const BTWApp = React.createClass ({
     
     getInitialState() {
         
@@ -86,15 +106,24 @@ const MainPage = React.createClass ({
         const userService = app.service('users');
         const feedService = app.service('feeds');
         
-        userService.find().then(userList => this.setState({user: userList}));
+        userService.find().then(userList => this.setState({user: userList.data[0]})).catch(() => {});
         feedService.find().then(feedOutput => this.setState({cards: feedOutput.data}));
     },
     
     render() {
-        return <div className="flex flex-row flex-1 clear">
-            <UserComponent user={this.state.user} />
-            <div className="flex flex-column col col-9">
-                <CardList cards={this.state.cards} />
+        
+        return <div id="app" className="flex flex-column">
+            <header className="title-bar flex flex-row flex-center">
+                <LoginButton user={this.state.user} />
+                <div className="title-wrapper block center-element">
+                    <span className="title">Build the World</span>
+                </div>
+            </header>
+            <div className="flex flex-row flex-1 clear">
+                <UserComponent user={this.state.user} />
+                <div className="flex flex-column col col-9">
+                    <CardList cards={this.state.cards} />
+                </div>
             </div>
         </div>
     }
@@ -102,16 +131,8 @@ const MainPage = React.createClass ({
 });
 
 const makepage = function() {
-    ReactDOM.render(<div id="app" className="flex flex-column">
-        <header className="title-bar flex flex-row flex-center">
-            <LoginButton />
-            <div className="title-wrapper block center-element">
-                <span className="title">Build the World</span>
-            </div>
-            </header>
-            
-            <MainPage />
-        </div>,document.body);
+    ReactDOM.render(<BTWApp />,document.getElementById('container'));
+    
 }
 
 
