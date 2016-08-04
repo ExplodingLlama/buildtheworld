@@ -18,6 +18,15 @@ const app = feathers()
     storage: window.localStorage
   }));
 
+const LoginButton = React.createClass ({
+    render() {
+        return <div>
+            <a href="/login.html" className="button-primary">Login</a>
+            <a href="/signup.html" className="button-primary">Signup</a>
+        </div>;
+    }
+})
+
 const UserComponent = React.createClass ({
    
     render() {
@@ -29,7 +38,7 @@ const UserComponent = React.createClass ({
             <ul className="flex flex-column flex-1 list-unstyled user-list">
                 <a className="block relative" href="#">
                     <img src={PLACEHOLDER} className="avatar" />
-                    <span className="absolute username">{user}</span>
+                    <span className="absolute username">{user.email}</span>
                 </a>
             </ul>
         </aside>;
@@ -74,18 +83,16 @@ const MainPage = React.createClass ({
     
     componentDidMount() {
         
-        const userService = app.service('user');
-        const feedService = app.service('initiatives');
+        const userService = app.service('users');
+        const feedService = app.service('feeds');
         
-        userService.find().then(userList => this.setState({user: userList.data}));
-        
+        userService.find().then(userList => this.setState({user: userList}));
         feedService.find().then(feedOutput => this.setState({cards: feedOutput.data}));
-    
     },
     
     render() {
         return <div className="flex flex-row flex-1 clear">
-            <UserComponent user="ratan14@gmail.com" />
+            <UserComponent user={this.state.user} />
             <div className="flex flex-column col col-9">
                 <CardList cards={this.state.cards} />
             </div>
@@ -94,8 +101,10 @@ const MainPage = React.createClass ({
     
 });
 
-ReactDOM.render(<div id="app" className="flex flex-column">
+const makepage = function() {
+    ReactDOM.render(<div id="app" className="flex flex-column">
         <header className="title-bar flex flex-row flex-center">
+            <LoginButton />
             <div className="title-wrapper block center-element">
                 <span className="title">Build the World</span>
             </div>
@@ -103,5 +112,9 @@ ReactDOM.render(<div id="app" className="flex flex-column">
             
             <MainPage />
         </div>,document.body);
+}
+
+
+app.authenticate().then(makepage).catch(() => {console.log("Not logged in"); makepage();});
 
 
