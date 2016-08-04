@@ -5,7 +5,7 @@
   "public": "../public/",
   "auth": {
     "token": {
-      "secret": "FEATHERS_AUTH_SECRET"
+      "secret": "UNeAn+44TJe1QqzLahSrSJx44yFVilL0q2oWbgBPL5qsS++QLx2J7muT/MDBD+/Y5I24D47aLAs6viejZ/Llag=="
     },
     "local": {},
     "facebook": {
