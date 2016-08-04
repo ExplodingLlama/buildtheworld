@@ -136,6 +136,6 @@ const makepage = function() {
 }
 
 
-app.authenticate().then(makepage).catch(() => {console.log("Not logged in"); makepage();});
+app.authenticate().then(makepage).catch(() => {console.log("Not logged into the website"); makepage();});
 
 
