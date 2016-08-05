@@ -12,6 +12,7 @@ const ip = app.get('ip');
 const server = https.createServer({
 }, app).listen(port, ip);
 
+app.setup(server);
 
 server.on('listening', () =>
   console.log(`Feathers application started on ${ip}:${port}`)
