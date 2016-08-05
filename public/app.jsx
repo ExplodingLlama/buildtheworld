@@ -7,8 +7,8 @@ const dummyUser = {
 };
 
 // Establish a Socket.io connection
-//const socket = io();
-const socket = io.connect('https://buildtheworld-explodingllama.rhcloud.com:8443/', {'forceNew':true });
+const socket = io();
+//const socket = io.connect('https://buildtheworld-explodingllama.rhcloud.com:8443/', {'forceNew':true });
 // Initialize our Feathers client application through Socket.io
 // with hooks and authentication.
 const app = feathers()
