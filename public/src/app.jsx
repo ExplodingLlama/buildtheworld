@@ -93,8 +93,7 @@ const CardList = React.createClass({
     renderCard(card) {
         const owner = card.ownerId || "Anonymous";
         
-        return <div className="message flex flex-row">
-            <div className="message-wrapper">
+        return <div className="message-wrapper">
                 <p className="message-header">
                     <span className="username font-600">{owner}</span>
                 </p>
@@ -102,13 +101,14 @@ const CardList = React.createClass({
                     {card.data}
                 </p>
 
-            </div>
-        </div>;
+            </div>;
     },
     
     render() {
         return <main className="chat flex flex-column flex-1 clear">
-            {this.props.cards.map(this.renderCard)}
+                {this.props.cards.map(function(card) {
+                    return <div key={card._id} className="message flex flex-row">{this.renderCard(card)}</div>;
+                }.bind(this))}
         </main>;
     }
 });
@@ -146,9 +146,6 @@ const BTWApp = React.createClass ({
                 <div className="flex flex-column col col-9">
                     <CardList cards={this.state.cards} />
                 </div>
-            </div>
-            <div className="flex flex-1">
-                    <MyEditor />
             </div>
         </div>
     }
