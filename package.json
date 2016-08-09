@@ -18,14 +18,18 @@
   "scripts": {
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
-    "compile": "node_modules/.bin/babel src --out-dir lib",
+    "compilebe": "node_modules/.bin/babel src --out-dir lib",
     "start": "node lib/",
+    "compilefe": "browserify -t [babelify --presets [ react ] ] public/src/app.jsx -o public/build/app.js --debug",
     "mocha": "mocha test/ --compilers js:babel-core/register --recursive"
   },
   "dependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cors": "^2.7.1",
+    "draft-js": "^0.7.0",
     "feathers": "^2.0.1",
     "feathers-authentication": "^0.7.9",
     "feathers-configuration": "^0.2.3",
@@ -40,13 +44,16 @@
     "passport-facebook-token": "^3.3.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-google-token": "^0.1.2",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
     "serve-favicon": "^2.3.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
     "jshint": "^2.9.2",
     "mocha": "^2.5.3",
     "request": "^2.74.0"
