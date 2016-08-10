@@ -19,8 +19,8 @@
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
     "compilebe": "node_modules/.bin/babel src --out-dir lib",
-    "start": "node lib/",
-    "compilefe": "browserify -t [babelify --presets [ react ] ] public/src/app.jsx -o public/build/app.js --debug",
+    "start": "nodemon lib/",
+    "compilefe": "browserify -t [babelify --presets [ react ] ] public/src/index.jsx -o public/build/app.js --debug",
     "mocha": "mocha test/ --compilers js:babel-core/register --recursive"
   },
   "dependencies": {
