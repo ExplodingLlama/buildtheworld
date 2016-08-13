@@ -4,6 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class CardList extends React.Component{
+    getInitialState() {
+        showAll: true;
+    }
+    
     //Render a single card
     renderCard(card) {
         const owner = card.ownerId || "Anonymous";
