@@ -1,5 +1,7 @@
 'use strict';
 
+const wildcardrouter = require('./wildcardrouter');
+
 const signup = require('./signup');
 
 const handler = require('feathers-errors/handler');
@@ -12,6 +14,7 @@ module.exports = function() {
     // handling middleware should go last.
     const app = this;
     app.post('/signup', signup(app));
+    app.use(wildcardrouter(app));
     app.use(notFound());
     app.use(logger(app));
     app.use(handler());
