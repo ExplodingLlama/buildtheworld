@@ -15,13 +15,15 @@ const socket = io();
 //const socket = io.connect('https://buildtheworld-explodingllama.rhcloud.com:8443/', {'forceNew':true });
 // Initialize our Feathers client application through Socket.io
 // with hooks and authentication.
-const app = feathers()
+window.feathersApp = feathers()
     .configure(feathers.socketio(socket))
     .configure(feathers.hooks())
     // Use localStorage to store our login token
     .configure(feathers.authentication({
         storage: window.localStorage
     }));
+
+const app = window.feathersApp;
 
 const BTWApp = React.createClass ({
 

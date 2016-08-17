@@ -4,11 +4,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class LoginArea extends React.Component {
-    
+
     logout() {
-        app.logout().then(() => window.location.href = '/index.html');
+        window.feathersApp.logout().then(
+          () => window.location.href = '/index.html'
+        ).catch(
+          () => console.log("Logout failed!")
+        );
     }
-    
+
     render() {
             if(!this.props.user.email){
                 return <    div>
@@ -21,7 +25,7 @@ class LoginArea extends React.Component {
                     <a href="#" className="logout button button-primary" onClick={this.logout}>Logout</a>
                 </div>;
             }
-        
+
     }
 };
 
