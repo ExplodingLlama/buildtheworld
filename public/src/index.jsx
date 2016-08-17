@@ -12,7 +12,7 @@ import RichTextEditor from './richtexteditor.jsx';
 
 // Establish a Socket.io connection
 const socket = io();
-const socket = io.connect('https://buildtheworld-explodingllama.rhcloud.com:8443/', {'forceNew':true });
+//const socket = io.connect('https://buildtheworld-explodingllama.rhcloud.com:8443/', {'forceNew':true });
 // Initialize our Feathers client application through Socket.io
 // with hooks and authentication.
 const app = feathers()
@@ -24,26 +24,26 @@ const app = feathers()
     }));
 
 const BTWApp = React.createClass ({
-    
+
     getInitialState() {
-        
+
         return {
             user: [],
             cards: []
         };
     },
-    
+
     componentDidMount() {
-        
+
         const userService = app.service('users');
         const feedService = app.service('feeds');
-        
+
         userService.find().then(userList => this.setState({user: userList.data[0]})).catch(() => {});
         feedService.find().then(feedOutput => this.setState({cards: feedOutput.data}));
     },
-    
+
     render() {
-        
+
         return <div id="app" className="flex flex-column">
             <header className="title-bar flex flex-row flex-center">
                 <LoginArea user={this.state.user} />
@@ -62,13 +62,11 @@ const BTWApp = React.createClass ({
             </div>
         </div>
     }
-    
+
 });
 
 const makepage = function() {
-    ReactDOM.render(<BTWApp />,document.getElementById('container'));    
+    ReactDOM.render(<BTWApp />,document.getElementById('container'));
 }
 
 app.authenticate().then(makepage).catch(() => {console.log("Not logged into the website"); makepage();});
-
-
