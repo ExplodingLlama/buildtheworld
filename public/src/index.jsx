@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import feathers from 'feathers-client';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 //Importing React Components
 import LoginArea from './loginarea.jsx';
@@ -68,7 +69,11 @@ const BTWApp = React.createClass ({
 });
 
 const makepage = function() {
-    ReactDOM.render(<BTWApp />,document.getElementById('container'));
+    ReactDOM.render(
+      <Router history={hashHistory}>
+        <Route path="/" component={BTWApp}/>
+      </Router>,
+      document.getElementById('container'));
 }
 
 app.authenticate().then(makepage).catch(() => {console.log("Not logged into the website"); makepage();});
